@@ -1,14 +1,19 @@
 <?php
+    // Downloads a file
+    require "../db_connection.php";
+    require "../utils/unsetted_post_fields.php";
     session_start();
+    $response = [];
 
-    // Controllo se l'user è loggato
+    // Check if user is logged in
     if(!isset($_SESSION['id_user'])){
-        echo "User is not logged in. Login first.";
+        $response['message'] = $MESSAGE_USER_NOT_LOGGED_IN;
+        http_response_code(401);  // 401 = Unauthorized
+        echo json_encode($response);
         exit();
     }
     
-    // Come path di root mettiamo 'uploads/<id_user>/' per evitare di prendere i file dagli altri user
-    $folder_path = "uploads/".$_SESSION['id_user']."/";
+    $folder_path = "../uploads/".$_SESSION['id_user']."/";  // Root path is '../uploads/<id_user>/'
 
     if(isset($_GET['path'])){
         $filename = $folder_path.$_GET['path']; //Read the filename
@@ -23,18 +28,21 @@
             header('Content-Length: '.filesize($filename));
             header('Pragma: public');
 
-            //Clear system output buffer
-            flush();
+            flush();    //Clear system output buffer
 
-            //Read the size of the file
-            readfile($filename);
+            readfile($filename);    //Read the size of the file
 
-            //Terminate from the script
-            die();
+            die();  //Terminate from the script
         }else{
-            echo "File does not exist.";
+            $response['message'] = "File does not exist for this user.";
+            http_response_code(400);
+            echo json_encode($response);
+            exit();
         }
     }else{
-        echo "Filename is not defined.";
+        $response['message'] = "'path' field was not specified and is required.";
+        http_response_code(422);    // 422 = Unprocessable entity
+        echo json_encode($response);
+        exit();
     }
 ?>

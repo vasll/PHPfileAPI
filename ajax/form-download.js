@@ -1,17 +1,16 @@
-// Handles the register form
+// Handles the download form
 $(document).ready(()=> {    // When the document is ready
-    $("#form-register").submit((event)=> {  // When the form is submitted
+    $("#form-download").submit((event)=> {  // When the form is submitted
         var formData = {
-            email: $("#email").val(),
-            nickname: $("#nickname").val(),
-            password: $("#password").val()
+            path: $("#path").val()
         }
-    
+        
+        // TODO download ajax thing
         $.ajax({
-            type: "POST",
-            url: "api/auth/register.php",
+            type: "GET",
+            url: "api/auth/download.php",
             data: formData,
-            dataType: "json",
+            dataType: "json",   // TODO Change this
             encode: true,
         }).done((response)=> {
             console.log(response)
