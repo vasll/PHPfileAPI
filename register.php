@@ -15,6 +15,9 @@
         <input type="password" name="password" id="password" placeholder="password" required>
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Libraries -->
+    <script src="js/jquery-3.6.3.js"></script>
 </body>
 
 </html>

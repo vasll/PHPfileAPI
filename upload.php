@@ -21,6 +21,8 @@
         <input type="submit" value="Upload Image" name="submit">
     </form><br>
 
+    <!-- Libraries -->
+    <script src="js/jquery-3.6.3.js"></script>
 </body>
 
 </html>

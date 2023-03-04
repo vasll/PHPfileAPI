@@ -16,6 +16,9 @@
     
     <p>Files that you have uploaded:</p>
     <?php include('api/get/uploads.php')?>
+
+    <!-- Libraries -->
+    <script src="js/jquery-3.6.3.js"></script>
 </body>
 
 </html>

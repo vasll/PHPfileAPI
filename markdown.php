@@ -20,6 +20,7 @@
 
     <textarea id="markdown-textarea"></textarea>
 
+    <!-- Libraries -->
     <script src="js/jquery-3.6.3.js"></script>
     <script src="js/markdown-listener.js"></script>
 </body>
