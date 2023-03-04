@@ -12,10 +12,7 @@
         echo "DB Connection error";
         echo $connection->connect_error;
         die;
-    }else{
-
     }
 
     return $connection;
-
 ?>

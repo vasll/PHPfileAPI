@@ -7,9 +7,9 @@
     exit();
   }
 
-  $target_dir = "uploads/".$_SESSION['id_user']."/";  // Path = 'uploads/<id_user>/'
-  $file_name = $_FILES["fileToUpload"]["name"];
-  $target_file = $target_dir.basename($file_name); // Appendo il nome del file alla dir
+  $target_dir = "uploads/".$_SESSION['id_user']."/";  // 'uploads/<id_user>/'
+  $full_file_name = $_FILES["fileToUpload"]["name"];  // 'image.png'
+  $target_file = $target_dir.basename($full_file_name); // Appendo il nome del file alla dir
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION)); // Prendo l'estensione del file
 
   // Controllo se la dir esiste, altrimenti la creo
@@ -33,11 +33,26 @@
     }
   }
   
-  // Controllo se il file esiste di già
+  // Controllo se il file esiste di già, se esiste creo un file rinominato 'filename_N.png'
   if (file_exists($target_file)) {
-    // TODO cambiare il nome del file ad n+1
-    // echo "Sorry, file already exists.<br>";
-    exit();
+    $file_count = 1;
+
+    $file_info = pathinfo($full_file_name);
+    $file_name = $file_info['filename'];
+
+    while(true){
+      $next_file = $file_name.'_'.$file_count.'.'.$file_info['extension'];  // 'image_3.png'
+      $next_file_path = $target_dir.$next_file;
+      if(file_exists($next_file_path)){
+        $file_count += 1;
+        continue;
+      }else{
+        $full_file_name = $next_file;
+        $target_file = $target_dir.$next_file;
+        break;
+      }
+    }
+
   }
   
   // Controllo sulla dimensione del file
@@ -54,7 +69,7 @@
   
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-    echo $file_name;
+    echo $full_file_name;
   } else {
     // echo "Sorry, there was an error uploading your file.";
   }

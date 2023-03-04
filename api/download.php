@@ -11,18 +11,16 @@
     $folder_path = "uploads/".$_SESSION['id_user']."/";
 
     if(isset($_GET['path'])){
-        //Read the filename
-        $filename = $folder_path.$_GET['path'];
-        //Check the file exists or not
-        if(file_exists($filename)) {
-
+        $filename = $folder_path.$_GET['path']; //Read the filename
+        
+        if(file_exists($filename)) {    //Check the file exists or not
             //Define header information
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
             header("Cache-Control: no-cache, must-revalidate");
             header("Expires: 0");
             header('Content-Disposition: attachment; filename="'.basename($filename).'"');
-            header('Content-Length: ' . filesize($filename));
+            header('Content-Length: '.filesize($filename));
             header('Pragma: public');
 
             //Clear system output buffer
@@ -36,5 +34,7 @@
         }else{
             echo "File does not exist.";
         }
-    }else echo "Filename is not defined."
+    }else{
+        echo "Filename is not defined.";
+    }
 ?>
