@@ -39,17 +39,14 @@
             $_SESSION['id_user'] = $rows['id'];
             $_SESSION['nickname'] = $rows['nickname'];
             $response['message'] = "Login successful";
-            http_response_code(200);
-            echo json_encode($response);
-            exit();
         }else{  // Wrong password
             $response['message'] = "Login failed, user not found";
             http_response_code(401);
-            echo json_encode($response);
-            exit();
         }
     }else{  // DB/Query error
         http_response_code(401);
         $response['message'] = "DB error, query not successful";
     }
+
+    echo json_encode($response);
 ?>

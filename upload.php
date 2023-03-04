@@ -15,7 +15,7 @@
     ?>
     
     <p>Upload</p>
-    <form action="api/upload.php" method="post" enctype="multipart/form-data">
+    <form id="form-upload">
         Select image to upload (JPG, JPEG, PNG, GIF):
         <input type="file" name="fileToUpload" id="fileToUpload"><br><br>
         <input type="submit" value="Upload Image" name="submit">
@@ -23,6 +23,7 @@
 
     <!-- Libraries -->
     <script src="js/jquery-3.6.3.js"></script>
+    <script src="ajax/form-upload.js"></script>
 </body>
 
 </html>
