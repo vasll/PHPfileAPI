@@ -1,15 +1,15 @@
-// Handles the login form
+// Handles the register form
 $(document).ready(()=> {    // When the document is ready
-    $("#form-login").submit((event)=> {  // When the form is submitted
-        console.log('click')
+    $("#form-register").submit((event)=> {  // When the form is submitted
         var formData = {
+            email: $("#email").val(),
             nickname: $("#nickname").val(),
             password: $("#password").val()
         }
     
         $.ajax({
             type: "POST",
-            url: "api/auth/login.php",
+            url: "api/auth/register.php",
             data: formData,
             dataType: "json",
             encode: true,

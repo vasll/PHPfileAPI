@@ -1,4 +1,6 @@
 <?php
+    // Logins a user
+    // TODO SANITIZE INPUTS
     require "../db_connection.php";
     require "../utils/unsetted_post_fields.php";
     session_start();
@@ -35,8 +37,11 @@
         if($rows['password'] == $password){   // Login successful
             session_reset();
             $_SESSION['id_user'] = $rows['id'];
+            $_SESSION['nickname'] = $rows['nickname'];
             $response['message'] = "Login successful";
             http_response_code(200);
+            echo json_encode($response);
+            exit();
         }else{  // Wrong password
             $response['message'] = "Login failed, user not found";
             http_response_code(401);
