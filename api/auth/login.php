@@ -1,24 +1,50 @@
 <?php
     require "../db_connection.php";
+    require "../utils/unsetted_post_fields.php";
     session_start();
+    $response = [];
 
+    // Check for unsetted fields
+    $unsetted_fields = getUnsettedPostFields('nickname', 'password');
+    if(count($unsetted_fields) > 0){
+        $response['message'] = $MESSAGE_FIELDS_UNSET;
+        $response['unsetted_fields'] = $unsetted_fields;
+        http_response_code(406);
+        echo json_encode($response);
+        exit();
+    }
+    
+    // If fields are set, continue
     $nickname = $_POST['nickname'];
-    $password = $_POST['password'];
+    $password = hash('sha512', $_POST['password']);
 
+    // Login query
     $query = "SELECT id, nickname, password FROM users WHERE nickname = '$nickname'";
     $queryResult = $connection->query($query);
 
     if($queryResult){
-        while($row = $queryResult->fetch_assoc()){
-            if($row['nickname'] == $nickname && $row['password'] == $password){
-                session_reset();
-                $_SESSION['id_user'] = $row['id'];
-                $_SESSION['nickname'] = $row['nickname'];
-            }
-            echo "Login successful!";
-            break;
+        $rows = $queryResult->fetch_assoc();    // Get rows from query
+        
+        if($rows == null){  // User not found
+            http_response_code(401);
+            $response['message'] = "Login failed, user not found";
+            echo json_encode($response);
+            exit();
         }
-    }else{
-        echo "Login not successful!";
+
+        if($rows['password'] == $password){   // Login successful
+            session_reset();
+            $_SESSION['id_user'] = $rows['id'];
+            $response['message'] = "Login successful";
+            http_response_code(200);
+        }else{  // Wrong password
+            $response['message'] = "Login failed, user not found";
+            http_response_code(401);
+            echo json_encode($response);
+            exit();
+        }
+    }else{  // DB/Query error
+        http_response_code(401);
+        $response['message'] = "DB error, query not successful";
     }
 ?>
