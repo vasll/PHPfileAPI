@@ -8,7 +8,7 @@ $(document).ready(()=> {    // When the document is ready
         // TODO download ajax thing
         $.ajax({
             type: "GET",
-            url: "api/auth/download.php",
+            url: "api/files/download.php",
             data: formData,
             dataType: "json",   // TODO Change this
             encode: true,

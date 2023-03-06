@@ -8,7 +8,7 @@
     <a href="user_uploads.php">My uploads</a>
     <a href="markdown.php">Markdown</a>&nbsp;&nbsp;';
 
-    if(isset($_SESSION['id_user'])){
+    if(isset($_SESSION['id_user']) && isset($_SESSION['nickname'])){
         echo 'Nickname: '.$_SESSION['nickname'];
     }else{
         echo 'User is not logged in.';
