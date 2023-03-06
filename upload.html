@@ -5,14 +5,7 @@
 </head>
 
 <body>
-    <?php include ('modules/navbar.php')?> 
-
-    <?php // Controllo sul login dell'user
-      if(!isset($_SESSION['id_user'])){
-        echo "User is not logged in. Login first.";
-        exit();
-      }
-    ?>
+    <div id="navbar"><!-- Filed by navbar.js --></div>
     
     <p>Upload</p>
     <form id="form-upload">
@@ -24,6 +17,7 @@
     <!-- Libraries -->
     <script src="js/jquery-3.6.3.js"></script>
     <script src="ajax/form-upload.js"></script>
+    <script src="modules/navbar.js"></script>
 </body>
 
 </html>

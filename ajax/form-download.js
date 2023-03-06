@@ -8,12 +8,9 @@ $(document).ready(()=> {    // When the document is ready
         // TODO download ajax thing
         $.ajax({
             type: "GET",
-            url: "api/files/download.php",
-            data: formData,
-            dataType: "json",   // TODO Change this
-            encode: true,
+            url: "api/files/download.php"
         }).done((response)=> {
-            console.log(response)
+            window.location = 'api/files/download.php';
         })
     
         event.preventDefault()

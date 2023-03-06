@@ -11,21 +11,26 @@ $(document).ready(()=> {
 
             const formData = new FormData()
             var files = $('#fileToUpload')[0].files
-            formData.append('fileToUpload', files[0]);
+            formData.append('fileToUpload', files[0])
+            formData.append('submit', '')
             
             $.ajax({
-                url: 'api/upload.php',
+                url: 'api/files/upload.php',
                 type: 'post',
                 data: formData,
                 contentType: false,
                 processData: false,
-                success: function(response){
-                    console.log(response)
-                    var pos = simpleMDE.codemirror.getCursor();
-                    simpleMDE.codemirror.setSelection(pos, pos);
-                    simpleMDE.codemirror.replaceSelection(`![](api/download.php?path=${response}&submit=download)`);
-                }
-            });
+            }).done((response)=>{
+                console.log(response)
+                const jsonResponse = JSON.parse(response)
+                var pos = simpleMDE.codemirror.getCursor();
+                simpleMDE.codemirror.setSelection(pos, pos);
+                simpleMDE.codemirror.replaceSelection(`![](api/files/download.php?path=${jsonResponse['filename']}&submit=download)`);
+            }).fail((jqXHR, textStatus, error)=>{
+                console.log(jqXHR)
+                console.log(textStatus)
+                console.log(error)
+            })
         }
     })
 })
