@@ -1,4 +1,5 @@
 <?php
+    // Returns information on the current session like user id and nickname
     require "../db_connection.php";
     if(!isset($_SESSION)){
         session_start();
