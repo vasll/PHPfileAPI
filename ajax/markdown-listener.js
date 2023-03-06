@@ -25,7 +25,7 @@ $(document).ready(()=> {
                 const jsonResponse = JSON.parse(response)
                 var pos = simpleMDE.codemirror.getCursor();
                 simpleMDE.codemirror.setSelection(pos, pos);
-                simpleMDE.codemirror.replaceSelection(`![](api/files/download.php?path=${jsonResponse['filename']}&submit=download)`);
+                simpleMDE.codemirror.replaceSelection(`![](api/files/download.php?filename=${jsonResponse['filename']}&submit=download)`);
             }).fail((jqXHR, textStatus, error)=>{
                 console.log(jqXHR)
                 console.log(textStatus)

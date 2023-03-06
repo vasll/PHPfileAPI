@@ -5,7 +5,7 @@ $(document).ready(()=> {    // When the document is ready
 
         $.ajax({
             type: "GET",
-            url: `api/files/download.php?path=${encodeURIComponent(filename)}`,
+            url: `api/files/download.php?filename=${encodeURIComponent(filename)}`,
             headers: {
                 Accept: 'application/octet-stream',
             }
