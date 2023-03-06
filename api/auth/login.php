@@ -39,6 +39,8 @@
             $_SESSION['id_user'] = $rows['id'];
             $_SESSION['nickname'] = $rows['nickname'];
             $response['message'] = "Login successful";
+            $response['id_user'] = $rows['id'];
+            $response['nickname'] = $rows['nickname'];
         }else{  // Wrong password
             $response['message'] = "Login failed, user not found";
             http_response_code(401);

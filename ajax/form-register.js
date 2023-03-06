@@ -15,6 +15,10 @@ $(document).ready(()=> {    // When the document is ready
             encode: true,
         }).done((response)=> {
             console.log(response)
+            $('#register-status').text('Register successful.')
+        }).fail((jqXHR, textStatus, error)=>{
+            console.log(response)
+            $('#register-status').text('Register failed.')
         })
     
         event.preventDefault()

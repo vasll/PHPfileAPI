@@ -15,6 +15,12 @@ $(document).ready(()=> {    // When the document is ready
             encode: true,
         }).done((response)=> {
             console.log(response)
+            $('#nav-status').text(`Nickname: ${response['nickname']}`)
+            $('#login-status').text('Login successful.')
+        }).fail((jqXHR, textStatus, error)=>{
+            console.log(error)
+            console.log(textStatus)
+            $('#login-status').text('Login failed.')
         })
     
         event.preventDefault()

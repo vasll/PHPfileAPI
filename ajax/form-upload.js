@@ -17,6 +17,11 @@ $(document).ready(()=> {    // When the document is ready
                 processData: false,
             }).done((response)=>{
                 console.log(response)
+                $('#upload-status').text('Upload successful.')
+            }).fail((jqXHR, textStatus, error)=>{
+                $('#upload-status').text('Upload failed.')
+                console.log(error)
+                console.log(textStatus)
             });
         }else{
             console.log('No files selected')
